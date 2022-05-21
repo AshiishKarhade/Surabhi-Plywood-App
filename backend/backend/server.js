@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 mongoose.connect(
-  process.env.MONGODB_URL || "mongodb://localhost/surabhiplywood",
+  process.env.MONGODB_URL || "mongodb://mongodb:27017/surabhiplywood",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
