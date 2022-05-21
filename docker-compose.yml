@@ -1,0 +1,64 @@
+version: "3.7"
+
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    #environment:
+      # MONGO_INITDB_DATABASE=surabhiplywood
+    networks: 
+      - plywood-network
+    ports:
+      - '27017:27017'
+    restart: always
+    volumes: 
+      - ./data:/data/db
+  
+  mongo-express:
+    container_name: mongo-express
+    image: mongo-express
+    depends_on:
+      - mongodb
+    networks: 
+      - plywood-network
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+      # - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      # - ME_CONFIG_MONGODB_ADMINPASSWORD=ashiish7
+      #- ME_CONFIG_BASICAUTH_USERNAME=admin
+      #- ME_CONFIG_BASICAUTH_PASSWORD=tribes
+    restart: always
+    ports:
+      - '8081:8081'
+    volumes: 
+      - ./data:/data/db
+
+  plywood-backend:
+    container_name: plywood-backend
+    image: ashiishkarhade/plywood-backend:latest
+    depends_on:
+      - mongodb
+    ports:
+      - '5000:5000'    
+    volumes: 
+      - ./data:/data/db
+    restart: always
+    networks:
+      - plywood-network
+
+
+  plywood-frontend:
+    container_name: plywood-frontend
+    image: ashiishkarhade/plywood-frontend:latest
+    depends_on:
+      - plywood-backend    
+    ports:
+      - '3000:3000'    
+    volumes: 
+      - ./data:/data/db  
+    restart: always
+    networks:
+      - plywood-network
+
+networks:
+  plywood-network:
