@@ -3,7 +3,7 @@ version: "3.7"
 services:
   mongodb:
     container_name: mongodb
-    image: mongo
+    image: docker.io/mongo
     #environment:
       # MONGO_INITDB_DATABASE=surabhiplywood
     networks: 
@@ -16,7 +16,7 @@ services:
   
   mongo-express:
     container_name: mongo-express
-    image: mongo-express
+    image: docker.io/mongo-express
     depends_on:
       - mongodb
     networks: 
@@ -35,7 +35,7 @@ services:
 
   plywood-backend:
     container_name: plywood-backend
-    image: ashiishkarhade/plywood-backend:latest
+    image: docker.io/ashiishkarhade/plywood-backend:latest
     depends_on:
       - mongodb
     ports:
@@ -49,7 +49,7 @@ services:
 
   plywood-frontend:
     container_name: plywood-frontend
-    image: ashiishkarhade/plywood-frontend:latest
+    image: docker.io/ashiishkarhade/plywood-frontend:latest
     depends_on:
       - plywood-backend    
     ports:
